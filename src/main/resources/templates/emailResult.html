@@ -1,0 +1,11 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Email result</title>
+</head>
+<body>
+<p th:text="'Email send to ' + ${emailPage.email}" />
+<a th:href="@{/}">to home</a>
+</body>
+</html>

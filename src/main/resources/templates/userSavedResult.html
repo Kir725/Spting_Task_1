@@ -1,0 +1,19 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>User Save Result</title>
+</head>
+<body>
+<h2>User:</h2>
+
+<p th:text="'Name: ' + ${mainPage.name}" />
+<p th:text="'Second name: ' + ${mainPage.secondName}" />
+<p th:text="'Middle name: ' + ${mainPage.middleName}" />
+<p th:text="'Email: ' + ${mainPage.email}" />
+<p th:text="'Job: ' + ${mainPage.job}" />
+<p th:text="'Salary: ' + ${mainPage.salary}" />
+
+<h2>Saved!</h2>
+<a th:href="@{/}">to home</a>
+</body>
+</html>

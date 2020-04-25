@@ -1,0 +1,2 @@
+Ivan Ivanov Ivanovich ivan@gmail.com 30000 manager
+Kir Bulichev Vselodovich Alisa@gmail.com 50000.0 writer
