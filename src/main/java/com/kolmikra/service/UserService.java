@@ -7,9 +7,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.TimeZone;
 
 @Service
 public class UserService {
@@ -40,5 +45,14 @@ public class UserService {
             e.printStackTrace();
         }
         return desiredUser;
+    }
+    public String getUserTime(TimeZone timeZone){
+        LocalDateTime today = LocalDateTime.now();
+        ZoneId id = ZoneId.of(timeZone.getID());
+        ZonedDateTime zonedDateTime = ZonedDateTime.of(today, id);      //That's how you add timezone to date
+
+        return DateTimeFormatter
+                .ofPattern("yyyy-MM-dd HH:mm")
+                .format(zonedDateTime);
     }
 }

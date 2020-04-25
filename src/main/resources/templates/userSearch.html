@@ -29,8 +29,16 @@
         </tr>
     </table>
 </form>
-<div th:if="${message}">
-    <h2 th:text="${message}"/>
+<div th:if="${errMessage}">
+    <h2 th:text="${errMessage}"/>
+</div>
+<div th:if="${successMessage}">
+    <h3>Search result: </h3>
+    <h3 th:text="${successMessage}"/>
+    <h3>User browser: </h3>
+    <h3 th:text="${browser}"/>
+    <h3>User time: </h3>
+    <h3 th:text="${userTime}"/>
 </div>
 <a th:href="@{/}">to home</a>
 </body>
