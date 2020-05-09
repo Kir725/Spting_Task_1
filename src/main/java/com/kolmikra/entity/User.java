@@ -1,5 +1,12 @@
 package com.kolmikra.entity;
 
+import lombok.Data;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Data
 public class User {
     private String name;
 
@@ -22,63 +29,8 @@ public class User {
         this.job = job;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public double getSalary() {
-        return salary;
-    }
-
-    public void setSalary(double salary) {
-        this.salary = salary;
-    }
-
-    public String getJob() {
-        return job;
-    }
-
-    public void setJob(String job) {
-        this.job = job;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", middleName='" + middleName + '\'' +
-                ", email='" + email + '\'' +
-                ", salary=" + salary +
-                ", job='" + job + '\'' +
-                '}';
+    public User(String userString){
+        List<String> user = Arrays.stream(userString.split(" ")).collect(Collectors.toList());
+        new User(user.get(0),user.get(1),user.get(2),user.get(3),Double.parseDouble(user.get(4)),user.get(5));
     }
 }

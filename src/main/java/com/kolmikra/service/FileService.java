@@ -1,6 +1,9 @@
 package com.kolmikra.service;
 
 import com.kolmikra.model.MainPage;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,11 +14,12 @@ import java.io.IOException;
 
 @Service
 public class FileService {
-    private final String path = new File("").getAbsolutePath() + "\\src\\main\\resources\\files\\UsersData.txt";
-    //Resource resource = new ClassPathResource("/files/UsersData.txt");
+    @Value("classpath:/files/UsersData.txt")
+    Resource resource;
 
     public void saveUser(MainPage mainPage) {
-        try (FileWriter writer = new FileWriter(path, true)) {
+
+        try (FileWriter writer = new FileWriter(resource.getFile(), true)) {
             StringBuilder sb = new StringBuilder();
                     sb.append(mainPage.getName())
                     .append(" ")
@@ -36,7 +40,7 @@ public class FileService {
         }
     }
     public void addUserFromFile(MultipartFile file){
-        try(FileWriter writer = new FileWriter(path, true)) {
+        try(FileWriter writer = new FileWriter(resource.getFile(), true)) {
             writer.write("\n");
             writer.write(new String(file.getBytes()));
         } catch (IOException e) {

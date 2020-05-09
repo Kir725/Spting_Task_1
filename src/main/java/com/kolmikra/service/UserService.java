@@ -1,6 +1,8 @@
 package com.kolmikra.service;
 
 import com.kolmikra.entity.User;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -18,24 +20,18 @@ import java.util.TimeZone;
 
 @Service
 public class UserService {
-    private final String path = new File("").getAbsolutePath() + "\\src\\main\\resources\\files\\UsersData.txt";
+    @Value("classpath:/files/UsersData.txt")
+    Resource resource;
 
     public Optional<User> findUser(String firstName, String secondName){
         Optional<User> desiredUser = Optional.empty();
         List<User> usersList = new ArrayList<>();
 
         try {
-            List<String> usersStringList = Files.readAllLines(Paths.get(path));
-            for(String userString: usersStringList){
-                String [] userData = userString.split(" ");
-                usersList.add(new User(userData[0],
-                                        userData[1],
-                                        userData[2],
-                                        userData[3],
-                     Double.parseDouble(userData[4]),
-                                        userData[5]
-                ));
-            }
+            List<String> usersStringList = Files.readAllLines(Paths.get(resource.getURI()));
+            usersStringList.forEach(str -> {
+                usersList.add(new User(str));
+            });
             for(User user : usersList){
                 if(firstName.equals(user.getName()) && secondName.equals(user.getSecondName())){
                     desiredUser = Optional.of(user);
@@ -46,10 +42,11 @@ public class UserService {
         }
         return desiredUser;
     }
+
     public String getUserTime(TimeZone timeZone){
         LocalDateTime today = LocalDateTime.now();
         ZoneId id = ZoneId.of(timeZone.getID());
-        ZonedDateTime zonedDateTime = ZonedDateTime.of(today, id);      //That's how you add timezone to date
+        ZonedDateTime zonedDateTime = ZonedDateTime.of(today, id);
 
         return DateTimeFormatter
                 .ofPattern("yyyy-MM-dd HH:mm")

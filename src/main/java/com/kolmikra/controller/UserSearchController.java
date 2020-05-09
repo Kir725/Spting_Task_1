@@ -41,7 +41,6 @@ public class UserSearchController {
 
             return "redirect:/userSearch";
         }
-        timezone.getID();
         Browser browser = UserAgent.parseUserAgentString(request.getHeader("User-Agent")).getBrowser();
         redirectAttributes.addFlashAttribute("successMessage", desiredUser.get().toString());
         redirectAttributes.addFlashAttribute("browser", browser);
